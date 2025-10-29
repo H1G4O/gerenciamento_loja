@@ -1,0 +1,18 @@
+tb_produto
+	id_produto
+	nome_produto
+	tamanho_produto
+	preco_compra
+	preco_venda
+	qtd_estoque
+
+tb_venda
+	id_venda
+	data_venda
+	nome_cliente
+	forma_pagamento
+
+tb_produto_venda
+	id_venda
+	id_produto
+	qtd_produto
