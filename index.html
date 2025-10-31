@@ -5,20 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
-    <img id="logo" src="./src/logo.png" alt="Logo">
     <title>Gerenciamento de loja</title>
 </head>
 <body>
-    <button id="botao">Cadastrar Produtos</button>
-    <div class="cadastro_produto_form" id="cadastro_produto_form">
+    <img id="logo" src="./src/logo.png" alt="Logo">
+    <button id="botao" onclick="open_form('cadastro_produto_form')">Cadastrar Produtos</button>
+    <div class="form_cadastro" id="cadastro_produto_form">
         <form>
+            <button id="botao_fechar" onclick="close_form('cadastro_produto_form')">X</button><br>
             <label for="nome_produto">Nome do produto</label><br>
-            <input type="text" id="nome_produto" name="nome_produto">
+            <input type="text" id="nome_produto" name="nome_produto"><br>   
+            <label for="tamanho_produto">Tamanho do produto</label><br>
+            <input type="text" id="tamanho_produto" name="tamanho_produto"><br>
+            <label for="preco_compra">Preço de compra</label><br>
+            <input type="text" id="preco_compra" name="preco_compra"><br>
+            <label for="preco_venda">Preço de venda</label><br>
+            <input type="text" id="preco_venda" name="preco_venda"><br>
+            <label for="qtd_disponivel">Quantidade no estoque</label><br>
+            <input type="text" id="qtd_disponivel" name="qtd_disponivel"><br>
         </form>
     </div>
 
+    <button id="botao" onclick="open_form('cadastro_venda_form')">Registrar Venda</button> 
+    <div class="form_cadastro" id="cadastro_venda_form">
+        <form>
+            <button id="botao_fechar" onclick="close_form('cadastro_venda_form')">X</button><br>
+            <label for="nome_cliente">Nome do cliente</label><br>
+            <input type="text" id="nome_cliente" name="nome_cliente"><br>              
+            <label for="nome_produto">Nome do prodnome_produto</label><br>
+            <input type="text" id="nome_produto" name="nome_produto"><br>   
+            <label for="tamanho_produto">Tamanho do produto</label><br>
+            <input type="text" id="tamanho_produto" name="tamanho_produto"><br>
+            <label for="forma_pagamento">Forma de pagamento</label><br>
+            <input type="text" id="forma_pagamento" name="forma_pagamento"><br>
+        </form>
+    </div>    
 
-    <button id="botao">Registrar Venda</button> 
     <a href="estoque.html"><button id="botao">Estoque de Produtos</button></a>
     <a href="dashboard.html"><button id="botao">Dashboard financeiro</button></a>
 </body>

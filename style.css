@@ -1,0 +1,22 @@
+.form_cadastro{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;    
+    background: rgb(241, 241, 241);
+    border-radius: 8px;
+    box-shadow: 0, 0, 10px black;
+    padding: 20px;
+    width: 400px;
+
+}
+
+input[type=text] {
+  border: 1px solid rgb(78, 78, 78);
+  border-radius: 5px;
+}
