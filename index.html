@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
     <title>Gerenciamento de loja</title>
 </head>
 <body>
     <img id="logo" src="./src/logo.png" alt="Logo">
     <button id="botao" onclick="open_form('cadastro_produto_form')">Cadastrar Produtos</button>
     <div class="form_cadastro" id="cadastro_produto_form">
-        <form>
+        <form id="cadastro_produto_form">
             <button id="botao_fechar" onclick="close_form('cadastro_produto_form')">X</button><br>
             <label for="nome_produto">Nome do produto</label><br>
             <input type="text" id="nome_produto" name="nome_produto"><br>   
@@ -23,6 +22,7 @@
             <input type="text" id="preco_venda" name="preco_venda"><br>
             <label for="qtd_disponivel">Quantidade no estoque</label><br>
             <input type="text" id="qtd_disponivel" name="qtd_disponivel"><br>
+            <button type="submit">Salvar</button>
         </form>
     </div>
 
@@ -32,16 +32,28 @@
             <button id="botao_fechar" onclick="close_form('cadastro_venda_form')">X</button><br>
             <label for="nome_cliente">Nome do cliente</label><br>
             <input type="text" id="nome_cliente" name="nome_cliente"><br>              
-            <label for="nome_produto">Nome do prodnome_produto</label><br>
-            <input type="text" id="nome_produto" name="nome_produto"><br>   
+            <label for="select_produto">Nome do produto</label><br>
+            <select name="select_produto" id="select_produto">
+                <option value="">Carregando... </option>
+            </select><br>   
             <label for="tamanho_produto">Tamanho do produto</label><br>
             <input type="text" id="tamanho_produto" name="tamanho_produto"><br>
             <label for="forma_pagamento">Forma de pagamento</label><br>
-            <input type="text" id="forma_pagamento" name="forma_pagamento"><br>
+            <select name="forma_pagamento">
+                <option>PIX</option>
+                <option>Débito</option>
+                <option>Crédito</option>
+            </select><br>
+            <button type="submit">Salvar</button>
         </form>
     </div>    
-
     <a href="estoque.html"><button id="botao">Estoque de Produtos</button></a>
     <a href="dashboard.html"><button id="botao">Dashboard financeiro</button></a>
+    
+
+
+
+
+    <script src="main.js"></script>
 </body>
 </html>
