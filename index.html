@@ -8,10 +8,10 @@
 </head>
 <body>
     <img id="logo" src="./src/logo.png" alt="Logo">
-    <button id="botao" onclick="open_form('cadastro_produto_form')">Cadastrar Produtos</button>
-    <div class="form_cadastro" id="cadastro_produto_form">
+    <button class="botao" onclick="open_form('cadastro_produto_form_div')">Cadastrar Produtos</button>
+    <div class="form_cadastro" id="cadastro_produto_form_div">
         <form id="cadastro_produto_form">
-            <button id="botao_fechar" onclick="close_form('cadastro_produto_form')">X</button><br>
+            <button type="button" id="botao_fechar" onclick="close_form('cadastro_produto_form_div')">X</button><br>
             <label for="nome_produto">Nome do produto</label><br>
             <input type="text" id="nome_produto" name="nome_produto"><br>   
             <label for="tamanho_produto">Tamanho do produto</label><br>
@@ -26,10 +26,10 @@
         </form>
     </div>
 
-    <button id="botao" onclick="open_form('cadastro_venda_form')">Registrar Venda</button> 
-    <div class="form_cadastro" id="cadastro_venda_form">
-        <form>
-            <button id="botao_fechar" onclick="close_form('cadastro_venda_form')">X</button><br>
+    <button class="botao" onclick="open_form('cadastro_venda_form_div')">Registrar Venda</button> 
+    <div class="form_cadastro" id="cadastro_venda_form_div">
+        <form id="cadastro_venda_form">
+            <button id="botao_fechar" onclick="close_form('cadastro_venda_form_div')">X</button><br>
             <label for="nome_cliente">Nome do cliente</label><br>
             <input type="text" id="nome_cliente" name="nome_cliente"><br>              
             <label for="select_produto">Nome do produto</label><br>
@@ -47,12 +47,9 @@
             <button type="submit">Salvar</button>
         </form>
     </div>    
-    <a href="estoque.html"><button id="botao">Estoque de Produtos</button></a>
     <a href="dashboard.html"><button id="botao">Dashboard financeiro</button></a>
     
-
-
-
+    <div id="estoque" class="cards"></div>
 
     <script src="main.js"></script>
 </body>

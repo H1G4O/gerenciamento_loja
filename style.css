@@ -20,3 +20,18 @@ input[type=text] {
   border: 1px solid rgb(78, 78, 78);
   border-radius: 5px;
 }
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.estoque {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
