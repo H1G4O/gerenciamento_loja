@@ -30,24 +30,33 @@
     <div class="form_cadastro" id="cadastro_venda_form_div">
         <form id="cadastro_venda_form">
             <button id="botao_fechar" onclick="close_form('cadastro_venda_form_div')">X</button><br>
+
             <label for="nome_cliente">Nome do cliente</label><br>
-            <input type="text" id="nome_cliente" name="nome_cliente"><br>              
+            <input type="text" id="nome_cliente" name="nome_cliente" required><br>      
+
             <label for="select_produto">Nome do produto</label><br>
-            <select name="select_produto" id="select_produto">
+            <select name="select_produto" id="select_produto" required>
                 <option value="">Carregando... </option>
             </select><br>   
+
             <label for="tamanho_produto">Tamanho do produto</label><br>
-            <input type="text" id="tamanho_produto" name="tamanho_produto"><br>
+            <input type="text" id="tamanho_produto" name="tamanho_produto" required><br>
+
+            <label for="qtd_vendida">Quantidade vendida</label><br>
+            <input type="text" id="qtd_vendida" name="qtd_vendida" required><br>
+
             <label for="forma_pagamento">Forma de pagamento</label><br>
-            <select name="forma_pagamento">
+            <select name="forma_pagamento" required>
                 <option>PIX</option>
                 <option>Débito</option>
                 <option>Crédito</option>
             </select><br>
+
             <button type="submit">Salvar</button>
         </form>
     </div>    
     <a href="dashboard.html"><button id="botao">Dashboard financeiro</button></a>
+    <a href="vendas.html"><button id="botao">Consultar vendas</button></a>
     
     <div id="estoque" class="cards"></div>
 
