@@ -16,27 +16,45 @@ function close_form(formId){
     document.getElementById(formId).style.display = "none";
 }
 
-function mostrar_produtos(){
+function mostrar_produtos(filtro = "") {
     const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
     const lista = document.getElementById('estoque');
+    lista.innerHTML = "";
 
-    lista.innerHTML="";
+    const produtosFiltrados = produtos.filter(produto =>
+        produto.nome_produto.toLowerCase().includes(filtro.toLowerCase()) ||
+        produto.tamanho_produto.toLowerCase().includes(filtro.toLowerCase())
+    );
 
-    if(produtos.length === 0){
-        lista.innerHTML = "<p>Nenhum produto cadastrado ainda.</p>";
+    if (produtosFiltrados.length === 0) {
+        lista.innerHTML = "<p>Nenhum produto encontrado.</p>";
         return;
     }
 
-    produtos.forEach(produto => {
-        const card = `
-            <div class="card">
-                <h3>${produto.nome_produto}</h3>
-                <p><strong>Preço de compra: </strong>R$ ${produto.preco_compra}</p>
-                <p><strong>Preço de venda: </strong>R$ ${produto.preco_venda}</p>
-                <p><strong>Quantidade no estoque: </strong> ${produto.qtd_disponivel}</p>
-            </div>
+    produtosFiltrados.forEach((produto, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        card.innerHTML = `
+            <h3>${produto.nome_produto}</h3>
+            <p><strong>Preço de compra:</strong> R$ ${produto.preco_compra}</p>
+            <p><strong>Preço de venda:</strong> R$ ${produto.preco_venda}</p>
+            <p><strong>Quantidade no estoque:</strong> ${produto.qtd_disponivel}</p>
         `;
-        lista.innerHTML += card;
+
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = "Editar";
+        btnEditar.onclick = () => editar_produto(index);
+
+        const btnExcluir = document.createElement('button');
+        btnExcluir.textContent = "Excluir";
+        btnExcluir.classList.add('excluir');
+        btnExcluir.onclick = () => excluir_produto(index);
+
+        card.appendChild(btnEditar);
+        card.appendChild(btnExcluir);
+
+        lista.appendChild(card);
     });
 }
 
@@ -88,12 +106,41 @@ function select_produtos(){
 
 }
 
+function excluir_produto(index) {
+    if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+
+    const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+    produtos.splice(index, 1); // Remove o item pelo índice
+    localStorage.setItem('produtos', JSON.stringify(produtos));
+    mostrar_produtos(); // Atualiza a tela
+}
+
+function editar_produto(index) {
+    const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+    const produto = produtos[index];
+
+    // Preenche os campos do formulário com os dados do produto
+    document.getElementById('nome_produto').value = produto.nome_produto;
+    document.getElementById('tamanho_produto').value = produto.tamanho_produto;
+    document.getElementById('preco_compra').value = produto.preco_compra;
+    document.getElementById('preco_venda').value = produto.preco_venda;
+    document.getElementById('qtd_disponivel').value = produto.qtd_disponivel;
+
+    // Armazena o índice do produto que está sendo editado (temporariamente)
+    document.getElementById('cadastro_produto_form').dataset.editIndex = index;
+
+    // Abre o modal de cadastro
+    open_form('cadastro_produto_form_div');
+}
+
 cadastro_produto_form.addEventListener('submit', function(event){
     event.preventDefault();
 
     const formData = new FormData(cadastro_produto_form);
     const data = Object.fromEntries(formData);
     let produtos= JSON.parse(localStorage.getItem('produtos')) || [];
+    const editIndex = cadastro_produto_form.dataset.editIndex;
+
 
         for (const campo in data) {
         if (data[campo].trim() === '') {
@@ -108,9 +155,19 @@ cadastro_produto_form.addEventListener('submit', function(event){
         return;
     }
 
+    if (editIndex !== undefined && editIndex !== "") {
+        // Atualiza o produto existente
+        produtos[editIndex] = data;
+        delete cadastro_produto_form.dataset.editIndex; // limpa o modo de edição
+        alert("Produto atualizado com sucesso!");
+    } else {
+        // Adiciona um novo produto
+        produtos.push(data);
+        alert("Produto cadastrado com sucesso!");
+    }
     
-    produtos.push(data);
     localStorage.setItem('produtos', JSON.stringify(produtos));
+    mostrar_produtos();
     
     cadastro_produto_form.reset();
 
@@ -174,8 +231,22 @@ cadastro_venda_form.addEventListener('submit', function(event){
     console.log("Venda registrada:", data);
 })
 
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('estoque')) {
     mostrar_produtos();
+    const filtro = document.getElementById('filtro_produto');
+    if (filtro) {
+      filtro.addEventListener('input', (event) => {
+        mostrar_produtos(event.target.value);
+      });
+    }
+  }
+
+  if (document.getElementById('select_produto')) {
     select_produtos();
+  }
+
+  if (document.getElementById('vendas')) {
     mostrar_vendas();
+  }
 });
