@@ -8,6 +8,7 @@
 </head>
 <body>
     <img id="logo" src="./src/logo.png" alt="Logo">
+    <div id="alerta" class="alerta"></div>
     <button class="botao" onclick="open_form('cadastro_produto_form_div')">Cadastrar Produtos</button>
     <div class="form_cadastro" id="cadastro_produto_form_div">
         <form id="cadastro_produto_form">
@@ -55,9 +56,17 @@
             <button type="submit">Salvar</button>
         </form>
     </div>    
-    <a href="dashboard.html"><button id="botao">Dashboard financeiro</button></a>
-    <a href="vendas.html"><button id="botao">Consultar vendas</button></a>
-    <input type="text" id="filtro_produto" placeholder="Pesquisar produto">
+    <header>
+    <h1>Sistema de Controle de Vendas</h1>
+    <nav>
+        <a href="index.html"><button id="botao">🏠 Início</button></a>
+        <a href="dashboard.html"><button id="botao">📊 Dashboard</button></a>
+        <a href="vendas.html"><button id="botao">💲 Controle de vendas</button></a>
+    </nav>
+    </header>
+    <div class="caixa-pesquisa">
+        <input type="text" id="filtro_produto" placeholder="🔍 Pesquisar produto">
+    </div>
     
     <div id="estoque" class="cards"></div>
 

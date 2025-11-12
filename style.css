@@ -35,3 +35,257 @@ input[type=text] {
     width: 200px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: #222;
+}
+
+button {
+  background: linear-gradient(135deg, #4CAF50, #2e7d32);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #66bb6a, #388e3c);
+}
+
+button.excluir {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+}
+
+button.excluir:hover {
+  background: linear-gradient(135deg, #ef5350, #c62828);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #1976d2;
+}
+
+#botao {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  margin: 10px;
+}
+
+#botao:hover {
+  background: linear-gradient(135deg, #42a5f5, #1565c0);
+}
+
+
+header {
+  background: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  font-size: 1.4rem;
+}
+
+header nav {
+  display: flex;
+  gap: 10px;
+}
+.alerta {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #323232;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.3s;
+  transform: translateY(-10px);
+  z-index: 1000;
+}
+
+.alerta.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#logo {
+  width: 120px;
+  margin: 15px auto;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+#logo:hover {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.caixa-pesquisa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#filtro_produto {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  margin: 20px auto;
+  display: block;
+  border: 2px solid #1976d2;
+  border-radius: 30px;
+  background: #ffffff;
+  color: #333;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+#filtro_produto:focus {
+  outline: none;
+  border-color: #42a5f5;
+  box-shadow: 0 0 10px rgba(66,165,245,0.6);
+  transform: scale(1.02);
+}
+
+#filtro_produto::placeholder {
+  color: #777;
+  font-style: italic;
+}
+
+.form_cadastro form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.form_cadastro label {
+  font-weight: 600;
+  color: #1976d2;
+  margin-top: 6px;
+}
+
+.form_cadastro input[type="text"],
+.form_cadastro select {
+  padding: 8px 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.form_cadastro input[type="text"]:focus,
+.form_cadastro select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25,118,210,0.3);
+  outline: none;
+}
+
+.form_cadastro button[type="submit"] {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form_cadastro button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(25,118,210,0.4);
+}
+
+#botao_fechar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #e53935;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+#botao_fechar:hover {
+  background: #c62828;
+  transform: scale(1.1);
+}
+
+/* ✨ Animação suave na abertura */
+@keyframes slideIn {
+  from {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+/* 🔹 Ajustes de responsividade e tamanho dos forms */
+.form_cadastro {
+  max-height: 90vh; /* impede de ultrapassar a altura da tela */
+  overflow-y: auto; /* adiciona rolagem se o conteúdo for maior */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+/* 🔹 Melhora a aparência do formulário em telas menores */
+@media (max-width: 500px) {
+  .form_cadastro {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .form_cadastro input[type="text"],
+  .form_cadastro select {
+    width: 100%;
+  }
+}

@@ -19,12 +19,29 @@ function close_form(formId){
 function mostrar_produtos(filtro = "") {
     const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
     const lista = document.getElementById('estoque');
+    const limite_baixo = 5;
     lista.innerHTML = "";
 
     const produtosFiltrados = produtos.filter(produto =>
         produto.nome_produto.toLowerCase().includes(filtro.toLowerCase()) ||
         produto.tamanho_produto.toLowerCase().includes(filtro.toLowerCase())
     );
+
+    const produtosAgrupados = {};
+
+    produtosFiltrados.forEach(produto => {
+        const nome = produto.nome_produto;
+        if (!produtosAgrupados[nome]) {
+            produtosAgrupados[nome] = [];
+        }
+        produtosAgrupados[nome].push(produto);
+    });
+
+    produtosFiltrados.sort((a, b) => {
+        const aBaixo = parseInt(a.qtd_disponivel) <= limite_baixo;
+        const bBaixo = parseInt(b.qtd_disponivel) <= limite_baixo;
+        return bBaixo - aBaixo;
+    });
 
     if (produtosFiltrados.length === 0) {
         lista.innerHTML = "<p>Nenhum produto encontrado.</p>";
@@ -42,14 +59,23 @@ function mostrar_produtos(filtro = "") {
             <p><strong>Quantidade no estoque:</strong> ${produto.qtd_disponivel}</p>
         `;
 
+        if (parseInt(produto.qtd_disponivel) <= limite_baixo) {
+            card.style.backgroundColor = '#ffb3b3'; // vermelho claro
+        }
+
+        const realIndex = produtos.findIndex(p => 
+            p.nome_produto === produto.nome_produto &&
+            p.tamanho_produto === produto.tamanho_produto
+        );
+
         const btnEditar = document.createElement('button');
         btnEditar.textContent = "Editar";
-        btnEditar.onclick = () => editar_produto(index);
+        btnEditar.onclick = () => editar_produto(realIndex);
 
         const btnExcluir = document.createElement('button');
         btnExcluir.textContent = "Excluir";
         btnExcluir.classList.add('excluir');
-        btnExcluir.onclick = () => excluir_produto(index);
+        btnExcluir.onclick = () => excluir_produto(realIndex);
 
         card.appendChild(btnEditar);
         card.appendChild(btnExcluir);
@@ -70,6 +96,9 @@ function mostrar_vendas(){
     }
 
     vendas.forEach(venda => {
+        const precoVenda = parseFloat(String(venda.preco_venda).replace(',', '.')) || 0;
+        const valorTotal = (parseFloat(venda.qtd_vendida) * precoVenda).toFixed(2);
+        
         const card = `
             <div class="card">
                 <h3>${venda.nome_venda}</h3>
@@ -79,6 +108,7 @@ function mostrar_vendas(){
                 <p><strong>Quantidade comprada: </strong> ${venda.qtd_vendida}</p>
                 <p><strong>Forma de pagamento: </strong> ${venda.forma_pagamento}</p>
                 <p><strong>Data da venda: </strong> ${venda.data_venda}</p>
+                <p><strong>Valor total da venda:</strong> R$ ${valorTotal}</p>
             </div>
         `;
         lista.innerHTML += card;
@@ -133,6 +163,14 @@ function editar_produto(index) {
     open_form('cadastro_produto_form_div');
 }
 
+function showAlert(msg, cor = "#323232") {
+  const alerta = document.getElementById("alerta");
+  alerta.textContent = msg;
+  alerta.style.background = cor;
+  alerta.classList.add("show");
+  setTimeout(() => alerta.classList.remove("show"), 2500);
+}
+
 cadastro_produto_form.addEventListener('submit', function(event){
     event.preventDefault();
 
@@ -144,14 +182,14 @@ cadastro_produto_form.addEventListener('submit', function(event){
 
         for (const campo in data) {
         if (data[campo].trim() === '') {
-            alert("Por favor, preencha todos os campos!");
+            showAlert("Erro: preencha todos os campos!", "#E53935");
             return; // interrompe o envio
         }
     }
 
     // 🔢 Verifica se números são válidos
     if (isNaN(data.preco_compra) || isNaN(data.preco_venda) || isNaN(data.qtd_disponivel)) {
-        alert("Preço e quantidade devem ser números!");
+        showAlert("Erro: Preço e quantidade devem ser números!", "#E53935");
         return;
     }
 
@@ -159,11 +197,11 @@ cadastro_produto_form.addEventListener('submit', function(event){
         // Atualiza o produto existente
         produtos[editIndex] = data;
         delete cadastro_produto_form.dataset.editIndex; // limpa o modo de edição
-        alert("Produto atualizado com sucesso!");
+        showAlert("Produto atualizado com sucesso!", "#4CAF50");
     } else {
         // Adiciona um novo produto
         produtos.push(data);
-        alert("Produto cadastrado com sucesso!");
+        showAlert("Produto cadastrado com sucesso!", "#4CAF50");
     }
     
     localStorage.setItem('produtos', JSON.stringify(produtos));
@@ -207,6 +245,8 @@ cadastro_venda_form.addEventListener('submit', function(event){
         return;
     }
 
+    data.preco_venda = Number(produto.preco_venda.toString().replace(',', '.'));
+    
     // Converte para número e verifica estoque
     const qtdAtual = parseInt(produto.qtd_disponivel) || 0;
 
