@@ -131,9 +131,7 @@ function select_produtos(){
     option.value = produto.nome_produto;  // ou outro identificador, se quiser
     option.textContent = produto.nome_produto;
     select.appendChild(option);
-});
-
-
+    });
 }
 
 function excluir_produto(index) {
